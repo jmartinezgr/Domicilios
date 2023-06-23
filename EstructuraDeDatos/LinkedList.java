@@ -5,6 +5,7 @@ En esta clase se implemente el codigo de una ListaElanzada, ya que toda la infor
 sobre un nodo llamado cabeza, y enlaces internos y como datos independientes ahorrando espacio de memoria
 y tiempo de ejecucion
  */
+
 public class LinkedList<T> {
     protected Node<T> head;
     protected Node<T> current;
@@ -32,8 +33,8 @@ public class LinkedList<T> {
         while (current != null) {
             if(current.getNext() != null){
                 System.out.print(current.getValue() + " -> ");
-                current = current.getNext();}
-            else{
+                current = current.getNext();
+            } else {
                 System.out.print(current.getValue());
                 current = current.getNext();
             }
@@ -70,5 +71,9 @@ public class LinkedList<T> {
         Node<T> node = getNodeAtIndex(index);
         node.setValue(value);
     }
-}
 
+    public void clear() {
+        head = null;
+        current = null;
+    }
+}
