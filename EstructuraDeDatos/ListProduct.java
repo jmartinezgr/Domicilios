@@ -46,4 +46,8 @@ public class ListProduct extends LinkedList<Product> {
         System.out.println();
     }
 
+    public void addInfoToData(){
+
+    }
+
 }

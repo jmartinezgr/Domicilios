@@ -12,17 +12,21 @@ public class CurrentUser {
     private String id;
     private ListProduct shoppingCart;
     private LinkedList<Integer> quantities;
-    private boolean verificate;
+    private String verificate;
+    private String user;
+    private String password;
 
-    public CurrentUser(String name, int age, String address, String gender, String id) {
+    public CurrentUser(String name, int age, String address, String gender, String id,String user, String password) {
         this.name = name;
         this.age = age;
         this.address = address;
         this.gender = gender;
         this.id = id;
+        this.user = user;
+        this.password = password;
         this.shoppingCart = new ListProduct();
         this.quantities = new LinkedList<>();
-        this.verificate = false;
+        this.verificate = "Por verificar";
     }
 
     public String getName() {
@@ -57,6 +61,10 @@ public class CurrentUser {
         this.shoppingCart = shoppingCart;
     }
 
+    public void setVerificate(String status){
+        this.verificate = status;
+    }
+
     public void clearShoppingCart() {
         shoppingCart.clear();
         quantities.clear();
@@ -65,6 +73,10 @@ public class CurrentUser {
     public void addToShoppingCart(Product product, int quantity) {
         shoppingCart.insertAtBeginning(product);
         quantities.insertAtBeginning(quantity);
+    }
+
+    public void addInfoToData(){
+
     }
 
     public void doDelivery() {

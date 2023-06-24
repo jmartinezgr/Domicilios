@@ -7,14 +7,21 @@ public class DeliveryPerson {
     private String vehicle;
     private String gender;
     private String codeDelivery;
+    private String verificate;
+    private String user;
+    private String password;
 
-    public DeliveryPerson(String name, int age, String id, String vehicle, String gender, String codeDelivery) {
+
+    public DeliveryPerson(String name, int age, String id, String vehicle, String gender, String codeDelivery,String user, String password) {
         this.name = name;
         this.age = age;
         this.id = id;
         this.vehicle = vehicle;
         this.gender = gender;
         this.codeDelivery = codeDelivery;
+        this.user = user;
+        this.password = password;
+        this.verificate = "Por verificar";
     }
 
     public void setCodeDelivery(String codeDelivery) {
@@ -47,5 +54,12 @@ public class DeliveryPerson {
 
     public String getCodeDelivery() {
         return codeDelivery;
+    }
+
+    public void setVerificate(String status){
+        this.verificate = status;
+    }
+    public void addInfoToData(){
+
     }
 }

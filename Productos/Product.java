@@ -46,4 +46,8 @@ public class Product {
     public boolean stockToSell(){
         return this.quantity > 0;
     }
+
+    public void addInfoToData(){
+
+    }
 }
