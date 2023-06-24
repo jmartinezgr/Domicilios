@@ -12,6 +12,7 @@ public class CurrentUser {
     private String id;
     private ListProduct shoppingCart;
     private LinkedList<Integer> quantities;
+    private boolean verificate;
 
     public CurrentUser(String name, int age, String address, String gender, String id) {
         this.name = name;
@@ -21,6 +22,7 @@ public class CurrentUser {
         this.id = id;
         this.shoppingCart = new ListProduct();
         this.quantities = new LinkedList<>();
+        this.verificate = false;
     }
 
     public String getName() {
