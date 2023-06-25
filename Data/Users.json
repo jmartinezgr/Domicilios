@@ -1,0 +1,38 @@
+{
+  "Users": {
+    "josemargri3": {
+      "name": "Juan Jose",
+      "age": 15,
+      "address": "",
+      "gender": "",
+      "id": "",
+      "user": "josemargri3",
+      "password": "manuelateamo",
+      "verificate": "Por verificar"
+    },
+    "manuela": {
+      "name": "Manuela",
+      "age": 14,
+      "address": "",
+      "gender": "",
+      "id": "",
+      "user": "manuela",
+      "password": "juanjoseteamo",
+      "verificate": "Por verificar"
+    }
+  },
+  "Deliverys": {
+    "Marcos213": {
+      "name": "Marcos",
+      "age": 18,
+      "id": "",
+      "vehicle": "Carro",
+      "gender": "",
+      "codeDelivery": "",
+      "user": "Marcos213",
+      "password": "marcoselmejor",
+      "verificate": "Por verificar"
+    }
+  },
+  "Admins": {}
+}
