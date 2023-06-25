@@ -1,0 +1,12 @@
+{
+  "Producto 1": {
+    "name": "",
+     "rating": "",
+    "quantity": 4,
+     "type": "Comida Rapida",
+    "value" : 20.5
+  },
+  "Producto 2": {
+
+  }
+}
