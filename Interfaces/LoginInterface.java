@@ -289,6 +289,8 @@ public class LoginInterface extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre de usuario", "Welcome", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }else{
+
+                    info.put("vehicle",JOptionPane.showInputDialog(null, "Ingrese su tipo de vehiculo"));
                     if(!admins.keyExists(userField.getText()) && !domiciliarios.keyExists(userField.getText()) && !usuarios.keyExists(userField.getText())){
                         DeliveryPerson nuevoUsuario = new DeliveryPerson(info);
                         nuevoUsuario.addInfoToData();
@@ -298,6 +300,25 @@ public class LoginInterface extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre de usuario", "Welcome", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
+
+                nameLabel.setText("");
+                nameField.setText("");
+                ageLabel.setText("");
+                ageField.setText("");
+                addressLabel.setText("");
+                addressField.setText("");
+                genderLabel.setText("");
+                genderField.setText("");
+                idLabel.setText("");
+                idField.setText("");
+                userLabel.setText("");
+                userField.setText("");
+                passwordLabel2.setText("");
+                passwordField2.setText("");
+                confirmButton.setText("");
+                typefield.setText("");
+                type.setText("");
+
 
                 nameLabel.setVisible(false);
                 nameField.setVisible(false);
