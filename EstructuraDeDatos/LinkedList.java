@@ -72,6 +72,10 @@ public class LinkedList<T> {
         node.setValue(value);
     }
 
+    public Node<T> getHead() {
+        return head;
+    }
+
     public void clear() {
         head = null;
         current = null;

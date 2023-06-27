@@ -112,7 +112,7 @@ public class CurrentUser {
         }
     }
 
-    public void doDelivery() {
+    public void doDelivery(int num) {
         double totalValue = 0;
         StringBuilder sb = new StringBuilder();
 
@@ -141,9 +141,10 @@ public class CurrentUser {
         map.put("Delivery", "");
         map.put("ProductList", productList);
         map.put("Value", totalValue);
-        map.put("Status", "Waiting for delivery");
+        map.put("Status", "Esperando repartidor");
+        map.put("key","D-"+num);
 
-        deliverysWriters.create("D-2", map);
+        deliverysWriters.create("D-"+num, map);
 
         shoppingCart.clear();
         quantities.clear();

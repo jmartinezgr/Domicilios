@@ -10,6 +10,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 
 public class DeliverysWriters {
     private String filePath;
@@ -51,17 +55,28 @@ public class DeliverysWriters {
     public Queue<Map<String, Object>> deliverysWaitingToDelivery() {
         Queue<Map<String, Object>> queue = new Queue<>();
 
-        for (Object key : data.keySet()) {
-            String deliveryId = (String) key;
-            Map<String, Object> deliveryInfo = getByKey(deliveryId);
+        // Crear una lista de claves para ordenarlas
+        List<String> keys = new ArrayList<>(data.keySet());
+        Collections.sort(keys);
+
+        for (String key : keys) {
+            Map<String, Object> deliveryInfo = getByKey(key);
 
             if (deliveryInfo.containsKey("Status") && deliveryInfo.get("Status").equals("Esperando repartidor")) {
                 queue.enqueue(deliveryInfo);
             }
         }
 
+        try {
+            Object obj = parser.parse(new FileReader(this.filePath));
+            data = (JSONObject) obj;
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
         return queue;
     }
+
 
 
     public void makeChange(String key, Map<String, Object> map) {
@@ -96,4 +111,22 @@ public class DeliverysWriters {
             e.printStackTrace();
         }
     }
+
+    public int getLastDeliveryNumber() {
+        int maxNumber = 0;
+
+        for (Object key : data.keySet()) {
+            String deliveryId = (String) key;
+            if (deliveryId.startsWith("D-")) {
+                String numberString = deliveryId.substring(2); // Obtener el número después de "D-"
+                int number = Integer.parseInt(numberString);
+                if (number > maxNumber) {
+                    maxNumber = number;
+                }
+            }
+        }
+
+        return maxNumber;
+    }
+
 }

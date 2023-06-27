@@ -33,7 +33,7 @@ public class DeliveryPerson {
 
     public DeliveryPerson(Map<String, Object> map) {
         this.name = (String) map.get("name");
-        this.age = (int) map.get("age");
+        this.age = ((Long) map.get("age")).intValue();
         this.id = (String) map.get("id");
         this.vehicle = (String) map.get("vehicle");
         this.gender = (String) map.get("gender");
@@ -41,6 +41,7 @@ public class DeliveryPerson {
         this.user = (String) map.get("user");
         this.password = (String) map.get("password");
         this.verificate = (String) map.get("verificate");
+        this.writer = new UsersWriters("Deliverys");
     }
 
     public void setCodeDelivery(String codeDelivery) {
@@ -78,16 +79,16 @@ public class DeliveryPerson {
     public void choiceDelivery(String code){
        codeDelivery = code;
 
-        DeliverysWriters delivery = new DeliverysWriters();
+       addInfoToData();
 
-        Map<String, Object> map = new HashMap<>();
+       DeliverysWriters delivery = new DeliverysWriters();
 
-        map = delivery.getByKey(code);
+       Map<String, Object> map = delivery.getByKey(code);
 
-        map.put("Delivery",name);
-        map.put("Status","On road");
-        
-        delivery.makeChange(code,map);
+       map.put("Delivery",user);
+       map.put("Status","En camino");
+
+       delivery.makeChange(code,map);
     }
 
     public void deliverToUser(){
@@ -95,7 +96,7 @@ public class DeliveryPerson {
         Map<String, Object> map = new HashMap<>();
         map = delivery.getByKey(codeDelivery);
 
-        map.put("Status","Recibed");
+        map.put("Status","Recibido");
         delivery.makeChange(codeDelivery,map);
         codeDelivery = "";
     }

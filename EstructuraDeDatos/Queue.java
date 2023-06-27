@@ -20,6 +20,21 @@ public class Queue<T> {
             throw new IllegalStateException("The queue is empty.");
         }
 
+        Node<T> firstNode = linkedList.getHead();
+        linkedList.head = firstNode.getNext();
+
+        return firstNode.getValue();
+    }
+
+
+
+
+    /*
+    public T dequeue() {
+        if (isEmpty()) {
+            throw new IllegalStateException("The queue is empty.");
+        }
+
         Node<T> current = linkedList.getInitialSelection();
         Node<T> previous = null;
 
@@ -35,7 +50,7 @@ public class Queue<T> {
         }
 
         return current.getValue();
-    }
+    }*/
 
     public Node<T> getHead() {
         return linkedList.getInitialSelection();
