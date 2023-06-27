@@ -100,7 +100,6 @@ public class DeliverysWriters {
         data.put(key, jsonObject);
         saveChanges();
     }
-
     private void saveChanges() {
         try {
             FileWriter writer = new FileWriter(this.filePath);

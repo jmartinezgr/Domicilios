@@ -1,1 +1,23 @@
-{"Pizza":{"quantity":10,"name":"Pizza","rating":5,"type":"Fast Food","value":50000.0},"Papas":{"quantity":10,"name":"Papas","rating":5,"type":"Fast Food","value":5000.0},"Arroz con Pollo":{"quantity":10,"name":"Arroz con Pollo","rating":4,"type":"Fast Food","value":70000.0}}
+{
+  "Pizza": {
+    "quantity": 10,
+    "name": "Pizza",
+    "rating": 5,
+    "type": "Fast Food",
+    "value": 50000.0
+  },
+  "Papas": {
+    "quantity": 10,
+    "name": "Papas",
+    "rating": 5,
+    "type": "Fast Food",
+    "value": 5000.0
+  },
+  "Arroz con Pollo": {
+    "quantity": 10,
+    "name": "Arroz con Pollo",
+    "rating": 4,
+    "type": "Fast Food",
+    "value": 70000.0
+  }
+}
