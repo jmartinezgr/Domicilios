@@ -110,6 +110,12 @@ public class DeliverysWriters {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        try {
+            Object obj = parser.parse(new FileReader(this.filePath));
+            data = (JSONObject) obj;
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getLastDeliveryNumber() {
