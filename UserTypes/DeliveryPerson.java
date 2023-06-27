@@ -1,5 +1,6 @@
 package Domicilios.UserTypes;
 
+import Domicilios.Writers.DeliverysWriters;
 import Domicilios.Writers.UsersWriters;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class DeliveryPerson {
     private String verificate;
     private String user;
     private String password;
-    private UsersWriters writer ;
+    private UsersWriters writer;
 
     public DeliveryPerson(String name, int age, String id, String vehicle, String gender, String codeDelivery, String user, String password) {
         this.name = name;
@@ -46,10 +47,6 @@ public class DeliveryPerson {
         this.codeDelivery = codeDelivery;
     }
 
-    public void deliverToUser() {
-        this.codeDelivery = "";
-    }
-
     public String getName() {
         return name;
     }
@@ -78,6 +75,31 @@ public class DeliveryPerson {
         this.verificate = status;
     }
 
+    public void choiceDelivery(String code){
+       codeDelivery = code;
+
+        DeliverysWriters delivery = new DeliverysWriters();
+
+        Map<String, Object> map = new HashMap<>();
+
+        map = delivery.getByKey(code);
+
+        map.put("Delivery",name);
+        map.put("Status","On road");
+        
+        delivery.makeChange(code,map);
+    }
+
+    public void deliverToUser(){
+        DeliverysWriters delivery = new DeliverysWriters();
+        Map<String, Object> map = new HashMap<>();
+        map = delivery.getByKey(codeDelivery);
+
+        map.put("Status","Recibed");
+        delivery.makeChange(codeDelivery,map);
+        codeDelivery = "";
+    }
+
     public void addInfoToData() {
         Map<String, Object> stringMap = new HashMap<>();
         stringMap.put("name", name);
@@ -88,7 +110,11 @@ public class DeliveryPerson {
         stringMap.put("codeDelivery", codeDelivery);
         stringMap.put("user", user);
         stringMap.put("password", password);
-        stringMap.put("verificate",verificate);
-        writer.makeChange(user, stringMap);
+        stringMap.put("verificate", verificate);
+        if (writer.keyExists(user)) {
+            writer.makeChange(user, stringMap);
+        }else{
+            writer.create(user,stringMap);
+        }
     }
 }

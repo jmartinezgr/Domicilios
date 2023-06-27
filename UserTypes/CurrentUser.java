@@ -2,7 +2,7 @@ package Domicilios.UserTypes;
 
 import Domicilios.EstructuraDeDatos.*;
 import Domicilios.Productos.Product;
-import Domicilios.Writers.UsersWriters;
+import Domicilios.Writers.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,12 +13,11 @@ public class CurrentUser {
     private String address;
     private String gender;
     private String id;
-    private ListProduct shoppingCart;
-    private LinkedList<Integer> quantities;
+    public ListProduct shoppingCart;
+    public LinkedList<Integer> quantities;
     private String verificate;
     private String user;
     private String password;
-
     private UsersWriters writer;
 
     public CurrentUser(String name, int age, String address, String gender, String id, String user, String password) {
@@ -37,7 +36,7 @@ public class CurrentUser {
 
     public CurrentUser(Map<String, Object> map) {
         this.name = (String) map.get("name");
-        this.age = (int) map.get("age");
+        this.age = ((Long) map.get("age")).intValue();
         this.address = (String) map.get("address");
         this.gender = (String) map.get("gender");
         this.id = (String) map.get("id");
@@ -48,6 +47,7 @@ public class CurrentUser {
         this.verificate = (String) map.get("verificate");
         this.writer = new UsersWriters("Users");
     }
+
 
     public String getName() {
         return name;
@@ -105,11 +105,16 @@ public class CurrentUser {
         stringMap.put("user", user);
         stringMap.put("password", password);
         stringMap.put("verificate",verificate);
-        writer.makeChange(user, stringMap);
+        if(writer.keyExists(user)){
+            writer.makeChange(user, stringMap);}
+        else{
+            writer.create(user,stringMap);
+        }
     }
 
     public void doDelivery() {
         double totalValue = 0;
+        StringBuilder sb = new StringBuilder();
 
         Node<Product> currentProduct = shoppingCart.getInitialSelection();
         Node<Integer> currentQuantity = quantities.getInitialSelection();
@@ -119,13 +124,34 @@ public class CurrentUser {
             for (int i = 0; i < quantity; i++) {
                 totalValue += currentProduct.getValue().getValue();
             }
+            sb.append(currentProduct.getValue().getName()).append("(").append(currentQuantity.getValue()).append(") -> ");
             currentProduct = currentProduct.getNext();
             currentQuantity = currentQuantity.getNext();
         }
 
-        System.out.println("Valor total del pedido: $" + totalValue);
+        String productList = sb.toString();
+        if (productList.endsWith(" -> ")) {
+            productList = productList.substring(0, productList.length() - 4);
+        }
+
+        DeliverysWriters deliverysWriters = new DeliverysWriters();
+        //String deliveryCode = generateDeliveryCode();
+        Map<String, Object> map = new HashMap<>();
+        map.put("User", name);
+        map.put("Delivery", "");
+        map.put("ProductList", productList);
+        map.put("Value", totalValue);
+        map.put("Status", "Waiting for delivery");
+
+        deliverysWriters.create("D-2", map);
 
         shoppingCart.clear();
         quantities.clear();
+    }
+
+    private String generateDeliveryCode() {
+        int lastDigit = Integer.parseInt(id.substring(id.length() - 1));
+        int newDigit = (lastDigit + 1) % 10;
+        return id.substring(0, id.length() - 1) + newDigit;
     }
 }

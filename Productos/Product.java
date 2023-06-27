@@ -8,7 +8,7 @@ import java.util.Map;
 public class Product {
     private String name;
     private int rating;
-    private int quantity;
+    private long quantity;
     private float value;
     private String type;
     private ProductsWriters writer;
@@ -19,16 +19,16 @@ public class Product {
         this.quantity = quantity;
         this.type = type;
         this.value = value;
-        this.writer = new ProductsWriters("Products");
+        this.writer = new ProductsWriters();
     }
 
     public Product(Map<String, Object> map) {
         this.name = (String) map.get("name");
-        this.rating = (int) map.get("rating");
-        this.quantity = (int) map.get("quantity");
+        this.rating = ((Number) map.get("rating")).intValue();
+        this.quantity = ((Number) map.get("quantity")).longValue();
         this.type = (String) map.get("type");
-        this.value = (float) map.get("value");
-        this.writer = new ProductsWriters("Products");
+        this.value = ((Number) map.get("value")).floatValue();
+        this.writer = new ProductsWriters();
     }
 
     public String getName() {
@@ -39,7 +39,7 @@ public class Product {
         return rating;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 
@@ -51,7 +51,7 @@ public class Product {
         return type;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
 
@@ -70,6 +70,10 @@ public class Product {
         stringMap.put("quantity", quantity);
         stringMap.put("type", type);
         stringMap.put("value", value);
-        writer.create(name, stringMap);
+        if(writer.keyExists(name)){
+            writer.makeChange(name,stringMap);}
+        else{
+            writer.create(name, stringMap);
+        }
     }
 }

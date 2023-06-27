@@ -74,8 +74,8 @@ public class UsersWriters {
             }
             return resultMap;
         } else {
-            System.out.println("La clave no existe en los datos.");
-            return null;
+            Map<String, Object> resultMap = new HashMap<>();
+            return resultMap;
         }
     }
 

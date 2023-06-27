@@ -29,8 +29,7 @@ public class ListProduct extends LinkedList<Product> {
         }
     }
 
-    @Override
-    public void displayList(){
+    public void displayList() {
         Node<Product> current = head;
 
         while (current != null) {
@@ -46,8 +45,21 @@ public class ListProduct extends LinkedList<Product> {
         System.out.println();
     }
 
-    public void addInfoToData(){
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Node<Product> current = head;
 
+        while (current != null) {
+            if (current.getNext() != null) {
+                sb.append(current.getValue().getName()).append(" (").append(current.getValue().getQuantity()).append(") -> ");
+                current = current.getNext();
+            } else {
+                sb.append(current.getValue().getName()).append(" (").append(current.getValue().getQuantity()).append(")");
+                current = current.getNext();
+            }
+        }
+
+        return sb.toString();
     }
-
 }

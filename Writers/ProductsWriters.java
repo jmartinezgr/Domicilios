@@ -17,18 +17,16 @@ public class ProductsWriters {
     private String type;
     private JSONObject data;
 
-    public ProductsWriters(String type) {
+    public ProductsWriters() {
         filePath = "src/Domicilios/Data/Products.json";
         parser = new JSONParser();
-        this.type = type;
         firstLoad();
     }
 
     private void firstLoad() {
         try {
             Object obj = parser.parse(new FileReader(this.filePath));
-            JSONObject jsonObject = (JSONObject) obj;
-            data = (JSONObject) jsonObject.get(this.type);
+            data = (JSONObject) obj;
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
@@ -74,22 +72,18 @@ public class ProductsWriters {
             }
             return resultMap;
         } else {
-            System.out.println("La clave no existe en los datos.");
-            return null;
+            Map<String, Object> resultMap = new HashMap<>();
+            return resultMap;
         }
     }
 
     private void saveChanges() {
-        try {
-            Object obj = parser.parse(new FileReader(this.filePath));
-            JSONObject jsonObject = (JSONObject) obj;
-            jsonObject.put(this.type, data);
-
+        try{
             FileWriter writer = new FileWriter(this.filePath);
-            writer.write(jsonObject.toJSONString());
+            writer.write(data.toJSONString());
             writer.flush();
             writer.close();
-        } catch (IOException | ParseException e) {
+        } catch (IOException  e) {
             e.printStackTrace();
         }
     }
