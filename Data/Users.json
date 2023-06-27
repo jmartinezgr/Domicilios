@@ -1,5 +1,15 @@
 {
   "Users": {
+    "laurita": {
+      "password": "juanjose",
+      "address": "samaniego",
+      "gender": "Regalada",
+      "name": "laura",
+      "verificate": "Por verificar",
+      "id": "10138448",
+      "user": "laurita",
+      "age": 19
+    },
     "manuela": {
       "password": "juanjoseteamo",
       "address": "",
@@ -29,9 +39,29 @@
       "id": "9805840485",
       "user": "cheimo1801",
       "age": 50
+    },
+    "manuelita": {
+      "password": "kevinteamo",
+      "address": "Rodeo alto",
+      "gender": "Mujer",
+      "name": "Manuela Rodriguez",
+      "verificate": "Por verificar",
+      "id": "1033176410",
+      "user": "manuelita",
+      "age": 19
     }
   },
   "Admins": {
+    "SantiagoVera": {
+      "password": "vivaelpoderoso",
+      "address": "San Javier",
+      "gender": "Muy macho",
+      "name": "Santiago",
+      "verificate": "Por verificar",
+      "id": "10384832948",
+      "user": "SantiagoVera",
+      "age": 20
+    },
     "god": {
       "password": "Viva dios",
       "name": "Avemaria",

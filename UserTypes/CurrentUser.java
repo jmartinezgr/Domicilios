@@ -36,7 +36,16 @@ public class CurrentUser {
 
     public CurrentUser(Map<String, Object> map) {
         this.name = (String) map.get("name");
-        this.age = ((Long) map.get("age")).intValue();
+
+        if (map.get("age") instanceof Long) {
+            this.age = ((Long) map.get("age")).intValue();
+        } else if (map.get("age") instanceof String) {
+            this.age = Integer.parseInt((String) map.get("age"));
+        } else {
+            // Manejar otro tipo de valor o valor nulo si es necesario
+            this.age = 0; // Valor predeterminado en caso de error
+        }
+
         this.address = (String) map.get("address");
         this.gender = (String) map.get("gender");
         this.id = (String) map.get("id");

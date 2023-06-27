@@ -1,7 +1,5 @@
 package Domicilios.Interfaces;
 
-
-import javax.swing.*;
 import javax.swing.*;
 
 public class MainApp {

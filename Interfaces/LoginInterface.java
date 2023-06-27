@@ -5,14 +5,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Domicilios.Writers.*;
+import Domicilios.UserTypes.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginInterface extends JFrame implements ActionListener {
 
     private Container contenedor;
-    private JLabel usernameLabel,passwordLabel,nameLabel,idLabel,ageLabel,addressLabel,genderLabel,userLabel,passwordLabel2;
-    private JTextField usernameField,nameField,idField,ageField,addressField,genderField,userField;
+    private JLabel usernameLabel,passwordLabel,nameLabel,idLabel,ageLabel,addressLabel,genderLabel,userLabel,passwordLabel2,type;
+    private JTextField usernameField,nameField,idField,ageField,addressField,genderField,userField,typefield;
     private JPasswordField passwordField,passwordField2;
 
     private JButton loginButton,registerButton,confirmButton;
+
+
 
     private MainApp mainApp;
 
@@ -31,12 +39,12 @@ public class LoginInterface extends JFrame implements ActionListener {
         usernameLabel = new JLabel("Usuario:");
         usernameLabel.setBounds(100,100,80,23);
         usernameField = new JTextField();
-        usernameField.setBounds(200,100,150,23);
+        usernameField.setBounds(200,100,160,23);
 
         passwordLabel = new JLabel("Contraseña:");
         passwordLabel.setBounds(100,150,80,23);
         passwordField = new JPasswordField();
-        passwordField.setBounds(200,150,150,23);
+        passwordField.setBounds(200,150,160,23);
 
         loginButton = new JButton("Iniciar sesión");
         loginButton.addActionListener(this);
@@ -54,17 +62,17 @@ public class LoginInterface extends JFrame implements ActionListener {
         contenedor.add(registerButton);
 
         nameLabel = new JLabel("Nombre:");
-        nameLabel.setBounds(100, 20, 80, 23);
+        nameLabel.setBounds(100, 30, 80, 23);
         nameLabel.setVisible(false);
         nameField = new JTextField();
-        nameField.setBounds(200, 20, 150, 23);
+        nameField.setBounds(200, 30, 150, 23);
         nameField.setVisible(false);
 
         ageLabel = new JLabel("Edad:");
-        ageLabel.setBounds(100, 50, 80, 23);
+        ageLabel.setBounds(100, 60, 80, 23);
         ageLabel.setVisible(false);
         ageField = new JTextField();
-        ageField.setBounds(200, 50, 150, 23);
+        ageField.setBounds(200, 60, 150, 23);
         ageField.setVisible(false);
 
         addressLabel = new JLabel("Dirección:");
@@ -102,9 +110,16 @@ public class LoginInterface extends JFrame implements ActionListener {
         passwordField2.setBounds(200, 210, 150, 23);
         passwordField2.setVisible(false);
 
+        type = new JLabel("Tipo");
+        type.setBounds(100,240,80,23);
+        type.setVisible(false);
+        typefield = new JTextField();
+        typefield.setBounds(200,240,150,23);
+        typefield.setVisible(false);
+
         confirmButton = new JButton("Confirmar");
         confirmButton.addActionListener(this);
-        confirmButton.setBounds(150, 270, 150, 23);
+        confirmButton.setBounds(150, 290, 150, 23);
         confirmButton.setVisible(false);
 
         contenedor.add(nameLabel);
@@ -122,13 +137,79 @@ public class LoginInterface extends JFrame implements ActionListener {
         contenedor.add(passwordLabel2);
         contenedor.add(passwordField2);
         contenedor.add(confirmButton);
-
+        contenedor.add(type);
+        contenedor.add(typefield);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginButton) {
-            // Lógica para iniciar sesión
+
+            String user = usernameField.getText();
+            String password = passwordField.getText();
+
+            UsersWriters writersUsuarios = new UsersWriters("Users");
+            UsersWriters writersDomiciliarios = new UsersWriters("Deliverys");
+            UsersWriters writersAdmins = new UsersWriters("Admins");
+
+            //Hacer funcion que que saque la cola de domicilios faltantessss y asigne el ultimo
+
+            Map<String,Object> info = writersUsuarios.getByKey(user);
+
+            if(info.isEmpty()){
+                info = writersDomiciliarios.getByKey(user);
+                if(info.isEmpty()){
+                    info = writersAdmins.getByKey(user);
+                    if(!info.isEmpty()){
+                        Admin nuevousuario = new Admin(info);
+                        if(info.get("password").equals(password)){
+                            if(info.get("verificate").equals("Verificado")){
+                                JOptionPane.showMessageDialog(null, "Bienvenido "+nuevousuario.getName(), "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                            } else if (info.get("verificate").equals("Por verificar")) {
+                                JOptionPane.showMessageDialog(null, "El usuario no ha sido verificado aun", "Error", JOptionPane.ERROR_MESSAGE);
+                            }else{
+                                JOptionPane.showMessageDialog(null, "El usuario se le ha denegado la entrada", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(null, "La clave es erronea", "Error", JOptionPane.ERROR_MESSAGE);
+                            passwordField.setText("");
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "El usuario no existe", "Error", JOptionPane.ERROR_MESSAGE);
+                        passwordField.setText("");
+                        usernameField.setText("");
+                    }
+                }else{
+                    DeliveryPerson nuevousuario = new DeliveryPerson(info);
+                    if(info.get("password").equals(password)){
+                        if(info.get("verificate").equals("Verificado")){
+                            JOptionPane.showMessageDialog(null, "Bienvenido "+nuevousuario.getName(), "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                        } else if (info.get("verificate").equals("Por verificar")) {
+                            JOptionPane.showMessageDialog(null, "El usuario no ha sido verificado aun", "Error", JOptionPane.ERROR_MESSAGE);
+                        }else{
+                            JOptionPane.showMessageDialog(null, "El usuario se le ha denegado la entrada", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "La clave es erronea", "Error", JOptionPane.ERROR_MESSAGE);
+                        passwordField.setText("");
+                    }
+                }
+            }else{
+                CurrentUser nuevousuario = new CurrentUser(info);
+                if(info.get("password").equals(password)){
+                    if(info.get("verificate").equals("Verificado")){
+                        JOptionPane.showMessageDialog(null, "Bienvenido "+nuevousuario.getName(), "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                    } else if (info.get("verificate").equals("Por verificar")) {
+                        JOptionPane.showMessageDialog(null, "El usuario no ha sido verificado aun", "Error", JOptionPane.ERROR_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "El usuario se le ha denegado la entrada", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "La clave es erronea", "Error", JOptionPane.ERROR_MESSAGE);
+                    passwordField.setText("");
+                }
+            }
+
         } else if (e.getSource() == registerButton) {
             // Ocultar los componentes de inicio de sesión
             usernameField.setVisible(false);
@@ -154,46 +235,100 @@ public class LoginInterface extends JFrame implements ActionListener {
             passwordLabel2.setVisible(true);
             passwordField2.setVisible(true);
             confirmButton.setVisible(true);
+            typefield.setVisible(true);
+            type.setVisible(true);
+            setTitle("Register");
 
         } else if (e.getSource() == confirmButton) {
             // Obtener los valores ingresados por el usuario
-            String name = nameField.getText();
-            String ageText = ageField.getText();
-            int age = 0; // Valor predeterminado en caso de que el campo esté vacío
-            if (!ageText.isEmpty()) {
-                age = Integer.parseInt(ageText);
+
+            boolean flag = true;
+
+            Map<String,Object> info = new HashMap<>();
+
+            info.put("name",nameField.getText());
+            if(!ageField.getText().isEmpty()) {
+                info.put("age", ageField.getText());
+            }else{
+                JOptionPane.showMessageDialog(this,"Debes llenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                info.put("age",0);
+                flag = false;
             }
-            String address = addressField.getText();
-            String gender = genderField.getText();
-            String id = idField.getText();
-            String user = userField.getText();
-            String password = new String(passwordField2.getPassword());
 
-            // Realizar el registro con los valores obtenidos
+            info.put("address",addressField.getText());
+            info.put("gender",genderField.getText());
+            info.put("id",idField.getText());
+            info.put("user",userField.getText());
+            info.put("password",new String(passwordField2.getPassword()));
+            info.put("verificate","Por verificar");
 
-            // Mostrar los componentes iniciales para el próximo inicio de sesión
-            nameLabel.setVisible(false);
-            nameField.setVisible(false);
-            ageLabel.setVisible(false);
-            ageField.setVisible(false);
-            addressLabel.setVisible(false);
-            addressField.setVisible(false);
-            genderLabel.setVisible(false);
-            genderField.setVisible(false);
-            idLabel.setVisible(false);
-            idField.setVisible(false);
-            userLabel.setVisible(false);
-            userField.setVisible(false);
-            passwordLabel2.setVisible(false);
-            passwordField2.setVisible(false);
-            confirmButton.setVisible(false);
+            if(!typefield.getText().equals("Admin") && !typefield.getText().equals("Usuario") && !typefield.equals("Domiciliario")){
+                flag = false;
+                JOptionPane.showMessageDialog(this,"Debes escribir Usuario o Admin o Domiciliaro", "Tipo invalido", JOptionPane.ERROR_MESSAGE);
+                typefield.setText("");
+            }
+            UsersWriters admins = new UsersWriters("Admins");
+            UsersWriters usuarios = new UsersWriters("Users");
+            UsersWriters domiciliarios = new UsersWriters("Deliverys");
+            if(flag){
+                if(typefield.getText().equals("Admin")){
+                    if(!admins.keyExists(userField.getText()) && !domiciliarios.keyExists(userField.getText()) && !usuarios.keyExists(userField.getText())){
+                        Admin nuevoUsuario = new Admin(info);
+                        nuevoUsuario.addInfoToData();
+                        JOptionPane.showMessageDialog(null, "Se ha creado el nuevo administrador", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre de usuario", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else if (typefield.getText().equals("Usuario")) {
+                    if(!admins.keyExists(userField.getText()) && !domiciliarios.keyExists(userField.getText()) && !usuarios.keyExists(userField.getText())){
+                        CurrentUser nuevoUsuario = new CurrentUser(info);
+                        nuevoUsuario.addInfoToData();
+                        JOptionPane.showMessageDialog(null, "Se ha creado el nuevo usuario", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre de usuario", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }else{
+                    if(!admins.keyExists(userField.getText()) && !domiciliarios.keyExists(userField.getText()) && !usuarios.keyExists(userField.getText())){
+                        DeliveryPerson nuevoUsuario = new DeliveryPerson(info);
+                        nuevoUsuario.addInfoToData();
+                        JOptionPane.showMessageDialog(null, "Se ha creado el nuevo domiciliario", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre de usuario", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
 
-            usernameField.setVisible(true);
-            passwordField.setVisible(true);
-            loginButton.setVisible(true);
-            registerButton.setVisible(true);
-            usernameLabel.setVisible(true);
-            passwordLabel.setVisible(true);
+                nameLabel.setVisible(false);
+                nameField.setVisible(false);
+                ageLabel.setVisible(false);
+                ageField.setVisible(false);
+                addressLabel.setVisible(false);
+                addressField.setVisible(false);
+                genderLabel.setVisible(false);
+                genderField.setVisible(false);
+                idLabel.setVisible(false);
+                idField.setVisible(false);
+                userLabel.setVisible(false);
+                userField.setVisible(false);
+                passwordLabel2.setVisible(false);
+                passwordField2.setVisible(false);
+                confirmButton.setVisible(false);
+                typefield.setVisible(false);
+                type.setVisible(false);
+
+                usernameField.setVisible(true);
+                passwordField.setVisible(true);
+                loginButton.setVisible(true);
+                registerButton.setVisible(true);
+                usernameLabel.setVisible(true);
+                passwordLabel.setVisible(true);
+
+                usernameField.setText("");
+                passwordField.setText("");
+
+                setTitle("Login");
+            }
         }
     }
 

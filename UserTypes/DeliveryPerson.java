@@ -33,7 +33,15 @@ public class DeliveryPerson {
 
     public DeliveryPerson(Map<String, Object> map) {
         this.name = (String) map.get("name");
-        this.age = ((Long) map.get("age")).intValue();
+        if (map.get("age") instanceof Long) {
+            this.age = ((Long) map.get("age")).intValue();
+        } else if (map.get("age") instanceof String) {
+            this.age = Integer.parseInt((String) map.get("age"));
+        } else {
+            // Manejar otro tipo de valor o valor nulo si es necesario
+            this.age = 0; // Valor predeterminado en caso de error
+        }
+
         this.id = (String) map.get("id");
         this.vehicle = (String) map.get("vehicle");
         this.gender = (String) map.get("gender");
@@ -72,32 +80,44 @@ public class DeliveryPerson {
         return codeDelivery;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getVerificate() {
+        return verificate;
+    }
+
     public void setVerificate(String status) {
         this.verificate = status;
     }
 
-    public void choiceDelivery(String code){
-       codeDelivery = code;
+    public void choiceDelivery(String code) {
+        codeDelivery = code;
 
-       addInfoToData();
+        addInfoToData();
 
-       DeliverysWriters delivery = new DeliverysWriters();
+        DeliverysWriters delivery = new DeliverysWriters();
 
-       Map<String, Object> map = delivery.getByKey(code);
+        Map<String, Object> map = delivery.getByKey(code);
 
-       map.put("Delivery",user);
-       map.put("Status","En camino");
+        map.put("Delivery", user);
+        map.put("Status", "En camino");
 
-       delivery.makeChange(code,map);
+        delivery.makeChange(code, map);
     }
 
-    public void deliverToUser(){
+    public void deliverToUser() {
         DeliverysWriters delivery = new DeliverysWriters();
         Map<String, Object> map = new HashMap<>();
         map = delivery.getByKey(codeDelivery);
 
-        map.put("Status","Recibido");
-        delivery.makeChange(codeDelivery,map);
+        map.put("Status", "Recibido");
+        delivery.makeChange(codeDelivery, map);
         codeDelivery = "";
     }
 
@@ -114,8 +134,8 @@ public class DeliveryPerson {
         stringMap.put("verificate", verificate);
         if (writer.keyExists(user)) {
             writer.makeChange(user, stringMap);
-        }else{
-            writer.create(user,stringMap);
+        } else {
+            writer.create(user, stringMap);
         }
     }
 }
