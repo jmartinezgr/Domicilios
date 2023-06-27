@@ -83,6 +83,7 @@ public class ProductsWriters {
             writer.write(data.toJSONString());
             writer.flush();
             writer.close();
+            firstLoad();
         } catch (IOException  e) {
             e.printStackTrace();
         }

@@ -89,6 +89,7 @@ public class UsersWriters {
             writer.write(jsonObject.toJSONString());
             writer.flush();
             writer.close();
+            firstLoad();
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
