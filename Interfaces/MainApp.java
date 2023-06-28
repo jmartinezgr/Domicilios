@@ -4,23 +4,24 @@ import javax.swing.*;
 
 public class MainApp {
     private LoginInterface loginInterface;
-    private MainInterface mainInterface;
+    private AdminInterface AdminInterface;
 
     public MainApp() {
         loginInterface = new LoginInterface();
         loginInterface.setMainApp(this);
     }
 
-    public void showMainInterface() {
+    public void showAdminInterface() {
         loginInterface.setVisible(false);
-        mainInterface = new MainInterface();
-        mainInterface.setMainApp(this);
+        AdminInterface = new AdminInterface();
+        AdminInterface.setMainApp(this);
+        AdminInterface.setVisible(true);
     }
 
     public void showLoginInterface() {
-        if (mainInterface != null) {
-            mainInterface.setVisible(false);
-            mainInterface = null;
+        if (AdminInterface != null) {
+            AdminInterface.setVisible(false);
+            AdminInterface = null;
         }
         loginInterface.setVisible(true);
     }
