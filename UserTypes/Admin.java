@@ -18,6 +18,8 @@ public class Admin {
     private UsersWriters userverificator;
     private UsersWriters deliveryverificator;
 
+    private UsersWriters adminverificator;
+
     public Admin(String name, int age, String address, String gender, String id, String user, String password) {
         this.name = name;
         this.age = age;
@@ -30,6 +32,7 @@ public class Admin {
         this.writer = new UsersWriters("Admins");
         this.userverificator = new UsersWriters("Users");
         this.deliveryverificator = new UsersWriters("Deliverys");
+        this.adminverificator = new UsersWriters("Admins");
     }
 
     public Admin(Map<String, Object> map) {
@@ -51,6 +54,7 @@ public class Admin {
         this.writer = new UsersWriters("Admins");
         this.userverificator = new UsersWriters("Users");
         this.deliveryverificator = new UsersWriters("Deliverys");
+        this.adminverificator = new UsersWriters("Admins");
     }
 
     public String getName() {
@@ -96,6 +100,16 @@ public class Admin {
 
     public void userVerification(String user, boolean verificate) {
         CurrentUser userToVerificate = new CurrentUser(userverificator.getByKey(user));
+        if (verificate) {
+            userToVerificate.setVerificate("Verificado");
+        } else {
+            userToVerificate.setVerificate("Denegado");
+        }
+        userToVerificate.addInfoToData();
+    }
+
+    public void adminVerification(String user, boolean verificate) {
+        Admin userToVerificate = new Admin(adminverificator.getByKey(user));
         if (verificate) {
             userToVerificate.setVerificate("Verificado");
         } else {

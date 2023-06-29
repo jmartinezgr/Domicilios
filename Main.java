@@ -93,7 +93,7 @@ public class Main {
             System.out.println("No hay stock");
         }
         producto1.addInfoToData();
-   */
+
 
         ProductsWriters productos = new ProductsWriters();
         DeliverysWriters deliverysWriters = new DeliverysWriters();
@@ -148,5 +148,15 @@ public class Main {
         }
 
     }
+*/
+        UsersWriters usersWriters = new UsersWriters("Users");
+        LinkedList<Map<String, Object>> users = usersWriters.getUsersWithVerificate();
 
+        if (users.isEmpty()) {
+            System.out.println("No hay usuarios con la característica 'verificate' igual a 'Por verificar'.");
+        } else {
+            System.out.println("Usuarios con la característica 'verificate' igual a 'Por verificar':");
+            users.displayList();
+        }
+    }
 }

@@ -1,6 +1,9 @@
 package Domicilios.Interfaces;
 
+import Domicilios.UserTypes.Admin;
+
 import javax.swing.*;
+import java.util.Map;
 
 public class MainApp {
     private LoginInterface loginInterface;
@@ -11,9 +14,9 @@ public class MainApp {
         loginInterface.setMainApp(this);
     }
 
-    public void showAdminInterface() {
+    public void showAdminInterface(Map<String,Object> administrador) {
         loginInterface.setVisible(false);
-        AdminInterface = new AdminInterface();
+        AdminInterface = new AdminInterface(administrador);
         AdminInterface.setMainApp(this);
         AdminInterface.setVisible(true);
     }

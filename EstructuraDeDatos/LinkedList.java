@@ -1,11 +1,5 @@
 package Domicilios.EstructuraDeDatos;
 
-/*
-En esta clase se implemente el codigo de una ListaElanzada, ya que toda la informacion de guarda
-sobre un nodo llamado cabeza, y enlaces internos y como datos independientes ahorrando espacio de memoria
-y tiempo de ejecucion
- */
-
 public class LinkedList<T> {
     protected Node<T> head;
     protected Node<T> current;
@@ -31,7 +25,7 @@ public class LinkedList<T> {
     public void displayList() {
         Node<T> current = head;
         while (current != null) {
-            if(current.getNext() != null){
+            if (current.getNext() != null) {
                 System.out.print(current.getValue() + " -> ");
                 current = current.getNext();
             } else {
@@ -79,5 +73,15 @@ public class LinkedList<T> {
     public void clear() {
         head = null;
         current = null;
+    }
+
+    public int size() {
+        int count = 0;
+        Node<T> current = head;
+        while (current != null) {
+            count++;
+            current = current.getNext();
+        }
+        return count;
     }
 }

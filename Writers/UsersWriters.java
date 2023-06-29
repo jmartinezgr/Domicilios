@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import Domicilios.EstructuraDeDatos.LinkedList;
+
 public class UsersWriters {
 
     private String filePath;
@@ -94,4 +96,41 @@ public class UsersWriters {
             e.printStackTrace();
         }
     }
+
+    public LinkedList<Map<String, Object>> getUsersWithVerificate() {
+        LinkedList<Map<String, Object>> users = new LinkedList<>();
+
+        try {
+            Object obj = parser.parse(new FileReader(this.filePath));
+            JSONObject jsonObject = (JSONObject) obj;
+            for (Object key: jsonObject.keySet()) {
+
+                String clase = (String) key;
+                JSONObject objetosclases = (JSONObject) jsonObject.get(clase);
+
+                for (Object keys : objetosclases.keySet()) {
+                    String username = (String) keys;
+                    JSONObject userObject = (JSONObject) objetosclases.get(username);
+
+                    String userVerificate = (String) userObject.get("verificate");
+                    if (userVerificate.equals("Por verificar")) {
+                        Map<String, Object> userMap = new HashMap<>();
+                        for (Object field : userObject.keySet()) {
+                            String fieldName = (String) field;
+                            Object fieldValue = userObject.get(fieldName);
+                            userMap.put(fieldName, fieldValue);
+                        }
+                        users.insertAtBeginning(userMap);
+                    }
+                }
+            }
+            return users;
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
+
 }
