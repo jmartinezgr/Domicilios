@@ -148,7 +148,7 @@ public class Main {
         }
 
     }
-*/
+
         UsersWriters usersWriters = new UsersWriters("Users");
         LinkedList<Map<String, Object>> users = usersWriters.getUsersWithVerificate();
 
@@ -159,4 +159,11 @@ public class Main {
             users.displayList();
         }
     }
-}
+
+*/
+        ProductsWriters productsWriters = new ProductsWriters();
+        ListProduct productList = productsWriters.productos();
+
+        System.out.println("Lista de productos:");
+        productList.displayList();
+}}

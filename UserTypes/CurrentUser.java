@@ -121,6 +121,26 @@ public class CurrentUser {
         }
     }
 
+    public double carritoValue(){
+        double totalValue = 0;
+        StringBuilder sb = new StringBuilder();
+
+        Node<Product> currentProduct = shoppingCart.getInitialSelection();
+        Node<Integer> currentQuantity = quantities.getInitialSelection();
+
+        while (currentProduct != null && currentQuantity != null) {
+            int quantity = currentQuantity.getValue();
+            for (int i = 0; i < quantity; i++) {
+                totalValue += currentProduct.getValue().getValue();
+            }
+            sb.append(currentProduct.getValue().getName()).append("(").append(currentQuantity.getValue()).append(") -> ");
+            currentProduct = currentProduct.getNext();
+            currentQuantity = currentQuantity.getNext();
+        }
+
+        return totalValue;
+    }
+
     public void doDelivery(int num) {
         double totalValue = 0;
         StringBuilder sb = new StringBuilder();

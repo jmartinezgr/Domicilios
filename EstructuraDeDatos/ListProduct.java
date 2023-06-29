@@ -2,6 +2,9 @@ package Domicilios.EstructuraDeDatos;
 
 import Domicilios.Productos.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListProduct extends LinkedList<Product> {
 
     public void sort() {
@@ -43,6 +46,18 @@ public class ListProduct extends LinkedList<Product> {
         }
 
         System.out.println();
+    }
+
+    public String[] getProductNames() {
+        List<String> names = new ArrayList<>();
+        Node<Product> current = head;
+
+        while (current != null) {
+            names.add(current.getValue().getName());
+            current = current.getNext();
+        }
+
+        return names.toArray(new String[0]);
     }
 
     @Override

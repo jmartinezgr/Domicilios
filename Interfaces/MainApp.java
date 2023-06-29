@@ -9,6 +9,8 @@ public class MainApp {
     private LoginInterface loginInterface;
     private AdminInterface AdminInterface;
 
+    private UserInterface UserInterface;
+
     public MainApp() {
         loginInterface = new LoginInterface();
         loginInterface.setMainApp(this);
@@ -25,8 +27,18 @@ public class MainApp {
         if (AdminInterface != null) {
             AdminInterface.setVisible(false);
             AdminInterface = null;
+        } else if (UserInterface != null) {
+            UserInterface.setVisible(false);
+            UserInterface = null;
         }
         loginInterface.setVisible(true);
+    }
+
+    public void showUserInterface(Map<String,Object> usuario){
+        loginInterface.setVisible(false);
+        UserInterface = new UserInterface(usuario);
+        UserInterface.setMainApp(this);
+        UserInterface.setVisible(true);
     }
 
     public static void main(String[] args) {

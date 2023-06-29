@@ -4,6 +4,7 @@ import Domicilios.Writers.ProductsWriters;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Product {
     private String name;
@@ -23,12 +24,54 @@ public class Product {
     }
 
     public Product(Map<String, Object> map) {
-        this.name = (String) map.get("name");
-        this.rating = ((Number) map.get("rating")).intValue();
-        this.quantity = ((Number) map.get("quantity")).longValue();
-        this.type = (String) map.get("type");
-        this.value = ((Number) map.get("value")).floatValue();
+        this.name = Objects.requireNonNullElse((String) map.get("name"), "");
+        this.rating = parseIntegerValue(map.get("rating"));
+        this.quantity = parseLongValue(map.get("quantity"));
+        this.type = Objects.requireNonNullElse((String) map.get("type"), "");
+        this.value = parseFloatValue(map.get("value"));
         this.writer = new ProductsWriters();
+    }
+
+    private int parseIntegerValue(Object value) {
+        if (value instanceof Number) {
+            return ((Number) value).intValue();
+        } else if (value instanceof String) {
+            try {
+                return Integer.parseInt((String) value);
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    private long parseLongValue(Object value) {
+        if (value instanceof Number) {
+            return ((Number) value).longValue();
+        } else if (value instanceof String) {
+            try {
+                return Long.parseLong((String) value);
+            } catch (NumberFormatException e) {
+                return 0L;
+            }
+        } else {
+            return 0L;
+        }
+    }
+
+    private float parseFloatValue(Object value) {
+        if (value instanceof Number) {
+            return ((Number) value).floatValue();
+        } else if (value instanceof String) {
+            try {
+                return Float.parseFloat((String) value);
+            } catch (NumberFormatException e) {
+                return 0.0f;
+            }
+        } else {
+            return 0.0f;
+        }
     }
 
     public String getName() {

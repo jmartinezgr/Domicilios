@@ -201,6 +201,8 @@ public class LoginInterface extends JFrame implements ActionListener {
                 if(info.get("password").equals(password)){
                     if(info.get("verificate").equals("Verificado")){
                         JOptionPane.showMessageDialog(null, "Bienvenido "+nuevousuario.getName(), "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                        this.mainApp.showUserInterface(info);
+                        dispose();
                     } else if (info.get("verificate").equals("Por verificar")) {
                         JOptionPane.showMessageDialog(null, "El usuario no ha sido verificado aun", "Error", JOptionPane.ERROR_MESSAGE);
                     }else{
@@ -266,7 +268,7 @@ public class LoginInterface extends JFrame implements ActionListener {
 
             if(!typefield.getText().equals("Admin") && !typefield.getText().equals("Usuario") && !typefield.equals("Domiciliario")){
                 flag = false;
-                JOptionPane.showMessageDialog(this,"Debes escribir Usuario o Admin o Domiciliaro", "Tipo invalido", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,"Debes escribir Usuario o Admin o Domiciliario", "Tipo invalido", JOptionPane.ERROR_MESSAGE);
                 typefield.setText("");
             }
             UsersWriters admins = new UsersWriters("Admins");

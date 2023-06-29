@@ -1,5 +1,7 @@
 package Domicilios.Writers;
 
+import Domicilios.EstructuraDeDatos.ListProduct;
+import Domicilios.Productos.Product;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -87,5 +89,19 @@ public class ProductsWriters {
         } catch (IOException  e) {
             e.printStackTrace();
         }
+    }
+
+    public ListProduct productos() {
+        ListProduct lista = new ListProduct();
+
+        for (Object key : data.keySet()) {
+            String clase = (String) key;
+            JSONObject objetoClase = (JSONObject) data.get(clase);
+
+            Product product = new Product(objetoClase);
+            lista.insertAtBeginning(product);
+        }
+
+        return lista;
     }
 }

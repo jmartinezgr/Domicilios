@@ -14,7 +14,7 @@
     "value": "50000"
   },
   "Papas": {
-    "quantity": 10,
+    "quantity": 8,
     "name": "Papas",
     "rating": 5,
     "type": "Fast Food",
@@ -29,10 +29,11 @@
   },
   "Jabon": {
     "raiting": "4",
-    "quantity": "10",
+    "quantity": 8,
     "name": "Jabon",
+    "rating": 0,
     "type": "Limpieza",
-    "value": "2000"
+    "value": 2000.0
   },
   "Arroz con Pollo": {
     "quantity": 10,

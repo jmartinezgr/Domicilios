@@ -46,5 +46,13 @@
     "Value": 260000.0,
     "Delivery": "santiago10",
     "key": "D-5"
+  },
+  "D-7": {
+    "ProductList": "Jabon(1) -> Papas(2)",
+    "Status": "Esperando repartidor",
+    "User": "Juan Jose Martinez ",
+    "Value": 12000.0,
+    "Delivery": "",
+    "key": "D-7"
   }
 }
