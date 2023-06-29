@@ -53,10 +53,4 @@ public class MainApp {
         deliveryInterface.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MainApp mainApp = new MainApp();
-            mainApp.showLoginInterface();
-        });
-    }
 }

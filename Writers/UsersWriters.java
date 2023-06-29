@@ -13,7 +13,6 @@ import java.util.Map;
 import Domicilios.EstructuraDeDatos.LinkedList;
 
 public class UsersWriters {
-
     private String filePath;
     private JSONParser parser;
     private String type;
@@ -26,6 +25,7 @@ public class UsersWriters {
         firstLoad();
     }
 
+    // Carga inicial del archivo JSON y obtención de los datos específicos del tipo de usuario
     private void firstLoad() {
         try {
             Object obj = parser.parse(new FileReader(this.filePath));
@@ -36,6 +36,7 @@ public class UsersWriters {
         }
     }
 
+    // Realiza cambios en los datos de un usuario existente
     public void makeChange(String key, Map<String, Object> map) {
         if (data.containsKey(key)) {
             JSONObject jsonObject = (JSONObject) data.get(key);
@@ -50,6 +51,7 @@ public class UsersWriters {
         }
     }
 
+    // Crea un nuevo usuario en los datos
     public void create(String key, Map<String, Object> map) {
         JSONObject jsonObject = new JSONObject();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
@@ -61,10 +63,12 @@ public class UsersWriters {
         saveChanges();
     }
 
+    // Verifica si una clave existe en los datos
     public boolean keyExists(String key) {
         return data.containsKey(key);
     }
 
+    // Obtiene la información de un usuario por su clave
     public Map<String, Object> getByKey(String key) {
         if (data.containsKey(key)) {
             JSONObject jsonObject = (JSONObject) data.get(key);
@@ -76,11 +80,13 @@ public class UsersWriters {
             }
             return resultMap;
         } else {
+            // Si la clave no existe, se devuelve un mapa vacío
             Map<String, Object> resultMap = new HashMap<>();
             return resultMap;
         }
     }
 
+    // Guarda los cambios realizados en el archivo JSON
     private void saveChanges() {
         try {
             Object obj = parser.parse(new FileReader(this.filePath));
@@ -97,14 +103,14 @@ public class UsersWriters {
         }
     }
 
+    // Obtiene una lista de usuarios con verificación pendiente
     public LinkedList<Map<String, Object>> getUsersWithVerificate() {
         LinkedList<Map<String, Object>> users = new LinkedList<>();
 
         try {
             Object obj = parser.parse(new FileReader(this.filePath));
             JSONObject jsonObject = (JSONObject) obj;
-            for (Object key: jsonObject.keySet()) {
-
+            for (Object key : jsonObject.keySet()) {
                 String clase = (String) key;
                 JSONObject objetosclases = (JSONObject) jsonObject.get(clase);
 
@@ -128,9 +134,6 @@ public class UsersWriters {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-
         return users;
     }
-
-
 }

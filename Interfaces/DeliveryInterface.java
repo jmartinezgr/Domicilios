@@ -88,7 +88,7 @@ public class DeliveryInterface extends JFrame implements ActionListener {
         contenedor.add(entregarDomicilio);
 
         logout = new JButton("Cerrar Sesion");
-        logout.setBounds(280,10,150,23);
+        logout.setBounds(290,10,150,23);
         logout.addActionListener(this);
         contenedor.add(logout);
 

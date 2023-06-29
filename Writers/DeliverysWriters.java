@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 public class DeliverysWriters {
     private String filePath;
     private JSONParser parser;
@@ -32,10 +31,12 @@ public class DeliverysWriters {
     }
 
     public boolean keyExists(String key) {
+        // Verifica si la clave existe en los datos
         return data.containsKey(key);
     }
 
     public Map<String, Object> getByKey(String key) {
+        // Obtiene los datos correspondientes a una clave específica
         if (data.containsKey(key)) {
             JSONObject jsonObject = (JSONObject) data.get(key);
             Map<String, Object> resultMap = new HashMap<>();
@@ -51,8 +52,8 @@ public class DeliverysWriters {
         }
     }
 
-
     public Queue<Map<String, Object>> deliverysWaitingToDelivery() {
+        // Obtiene los pedidos de entrega que están esperando a ser entregados
         try {
             Object obj = parser.parse(new FileReader(this.filePath));
             data = (JSONObject) obj;
@@ -62,9 +63,12 @@ public class DeliverysWriters {
 
         Queue<Map<String, Object>> queue = new Queue<>();
 
-        // Crear una lista de claves para ordenarlas
+        // Crear una lista de claves y ordenarlas
         List<String> keys = new ArrayList<>(data.keySet());
         Collections.sort(keys);
+
+        // Invertir el orden de las claves
+        Collections.reverse(keys);
 
         for (String key : keys) {
             Map<String, Object> deliveryInfo = getByKey(key);
@@ -84,9 +88,8 @@ public class DeliverysWriters {
         return queue;
     }
 
-
-
     public void makeChange(String key, Map<String, Object> map) {
+        // Realiza cambios en los datos para una clave específica
         JSONObject jsonObject = new JSONObject();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             String field = entry.getKey();
@@ -98,6 +101,7 @@ public class DeliverysWriters {
     }
 
     public void create(String key, Map<String, Object> map) {
+        // Crea una nueva entrada en los datos para una clave específica
         JSONObject jsonObject = new JSONObject();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             String field = entry.getKey();
@@ -107,7 +111,9 @@ public class DeliverysWriters {
         data.put(key, jsonObject);
         saveChanges();
     }
+
     private void saveChanges() {
+        // Guarda los cambios en el archivo JSON
         try {
             FileWriter writer = new FileWriter(this.filePath);
             writer.write(data.toJSONString());
@@ -125,6 +131,7 @@ public class DeliverysWriters {
     }
 
     public int getLastDeliveryNumber() {
+        // Obtiene el último número de entrega registrado
         int maxNumber = 0;
 
         for (Object key : data.keySet()) {
@@ -140,5 +147,4 @@ public class DeliverysWriters {
 
         return maxNumber;
     }
-
 }

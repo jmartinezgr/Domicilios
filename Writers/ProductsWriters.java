@@ -25,6 +25,7 @@ public class ProductsWriters {
         firstLoad();
     }
 
+    // Carga inicial del archivo JSON
     private void firstLoad() {
         try {
             Object obj = parser.parse(new FileReader(this.filePath));
@@ -34,6 +35,7 @@ public class ProductsWriters {
         }
     }
 
+    // Realiza cambios en los datos de un producto existente
     public void makeChange(String key, Map<String, Object> map) {
         if (data.containsKey(key)) {
             JSONObject jsonObject = (JSONObject) data.get(key);
@@ -48,6 +50,7 @@ public class ProductsWriters {
         }
     }
 
+    // Crea un nuevo producto en los datos
     public void create(String key, Map<String, Object> map) {
         JSONObject jsonObject = new JSONObject();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
@@ -59,10 +62,12 @@ public class ProductsWriters {
         saveChanges();
     }
 
+    // Verifica si una clave existe en los datos
     public boolean keyExists(String key) {
         return data.containsKey(key);
     }
 
+    // Obtiene la información de un producto por su clave
     public Map<String, Object> getByKey(String key) {
         if (data.containsKey(key)) {
             JSONObject jsonObject = (JSONObject) data.get(key);
@@ -74,23 +79,26 @@ public class ProductsWriters {
             }
             return resultMap;
         } else {
+            // Si la clave no existe, se devuelve un mapa vacío
             Map<String, Object> resultMap = new HashMap<>();
             return resultMap;
         }
     }
 
+    // Guarda los cambios realizados en el archivo JSON
     private void saveChanges() {
-        try{
+        try {
             FileWriter writer = new FileWriter(this.filePath);
             writer.write(data.toJSONString());
             writer.flush();
             writer.close();
             firstLoad();
-        } catch (IOException  e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    // Obtiene la lista de productos a partir de los datos
     public ListProduct productos() {
         ListProduct lista = new ListProduct();
 

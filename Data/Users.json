@@ -1,1 +1,18 @@
-{"Users":{"laurita":{"password":"juanjose","address":"samaniego","gender":"Regalada","name":"laura","verificate":"Por verificar","id":"10138448","user":"laurita","age":19},"josemargri3":{"password":"++juanjose","address":"Poblado","gender":"Hombre","name":"Juan Jose Martinez ","verificate":"Verificado","id":"1018224606","user":"josemargri3","age":18},"manuelita":{"password":"kevinteamo","address":"Rodeo alto","gender":"Mujer","name":"Manuela Rodriguez","verificate":"Por verificar","id":"1033176410","user":"manuelita","age":19}},"Admins":{"SantiagoVera":{"password":"vivaelpoderoso","address":"San Javier","gender":"Muy macho","name":"Santiago","verificate":"Verificado","id":"10384832948","user":"SantiagoVera","age":20},"Lamarinilla":{"password":"123","address":"Marinilla","gender":"Mujer","name":"Manuela","verificate":"Por verificar","id":"0183478329","user":"Lamarinilla","age":17}},"Deliverys":{"santiago10":{"password":"vivamedallo","gender":"Hombre","name":"Santiago","codeDelivery":"D-1","verificate":"Verificado","id":"1018584490385","user":"santiago10","age":20,"vehicle":"Moto"}}}
+{
+  "Users": {
+  },
+  "Admins": {
+    "Administrador": {
+      "password": "123456789",
+      "address": "",
+      "gender": "",
+      "name": "Admin",
+      "verificate": "Verificado",
+      "id": "111111111",
+      "user": "Administrador",
+      "age": 20
+    }
+  },
+  "Deliverys": {
+  }
+}

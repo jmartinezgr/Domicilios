@@ -21,6 +21,7 @@ public class CurrentUser {
     private UsersWriters writer;
 
     public CurrentUser(String name, int age, String address, String gender, String id, String user, String password) {
+        // Constructor que recibe los datos del usuario actual y los asigna a las variables miembro.
         this.name = name;
         this.age = age;
         this.address = address;
@@ -35,6 +36,7 @@ public class CurrentUser {
     }
 
     public CurrentUser(Map<String, Object> map) {
+        // Constructor que recibe un mapa de datos y extrae los valores correspondientes para inicializar el usuario actual.
         this.name = (String) map.get("name");
 
         if (map.get("age") instanceof Long) {
@@ -57,54 +59,65 @@ public class CurrentUser {
         this.writer = new UsersWriters("Users");
     }
 
-
     public String getName() {
+        // Devuelve el nombre del usuario actual.
         return name;
     }
 
     public int getAge() {
+        // Devuelve la edad del usuario actual.
         return age;
     }
 
     public String getAddress() {
+        // Devuelve la dirección del usuario actual.
         return address;
     }
 
     public void setAddress(String address) {
+        // Establece la dirección del usuario actual.
         this.address = address;
     }
 
     public String getGender() {
+        // Devuelve el género del usuario actual.
         return gender;
     }
 
     public String getId() {
+        // Devuelve el ID del usuario actual.
         return id;
     }
 
     public ListProduct getShoppingCart() {
+        // Devuelve el carrito de compras del usuario actual.
         return shoppingCart;
     }
 
     public void setShoppingCart(ListProduct shoppingCart) {
+        // Establece el carrito de compras del usuario actual.
         this.shoppingCart = shoppingCart;
     }
 
     public void setVerificate(String status) {
+        // Establece el estado de verificación del usuario actual.
         this.verificate = status;
     }
 
     public void clearShoppingCart() {
+        // Limpia el carrito de compras del usuario actual.
         shoppingCart.clear();
         quantities.clear();
     }
 
     public void addToShoppingCart(Product product, int quantity) {
+        // Agrega un producto con una cantidad determinada al carrito de compras del usuario actual.
         shoppingCart.insertAtBeginning(product);
         quantities.insertAtBeginning(quantity);
     }
 
     public void addInfoToData() {
+        // Agrega la información del usuario actual a los datos.
         Map<String, Object> stringMap = new HashMap<>();
         stringMap.put("name", name);
         stringMap.put("age", age);
@@ -115,13 +128,17 @@ public class CurrentUser {
         stringMap.put("password", password);
         stringMap.put("verificate",verificate);
         if(writer.keyExists(user)){
-            writer.makeChange(user, stringMap);}
+            // Si el usuario ya existe en los datos, se realiza un cambio en la información del usuario actual.
+            writer.makeChange(user, stringMap);
+        }
         else{
+            // Si el usuario no existe en los datos, se crea una nueva entrada para el usuario actual.
             writer.create(user,stringMap);
         }
     }
 
     public double carritoValue(){
+        // Calcula el valor total del carrito de compras del usuario actual.
         double totalValue = 0;
         StringBuilder sb = new StringBuilder();
 
@@ -142,6 +159,7 @@ public class CurrentUser {
     }
 
     public void doDelivery(int num) {
+        // Realiza la entrega de los productos en el carrito de compras del usuario actual.
         double totalValue = 0;
         StringBuilder sb = new StringBuilder();
 
@@ -179,9 +197,4 @@ public class CurrentUser {
         quantities.clear();
     }
 
-    private String generateDeliveryCode() {
-        int lastDigit = Integer.parseInt(id.substring(id.length() - 1));
-        int newDigit = (lastDigit + 1) % 10;
-        return id.substring(0, id.length() - 1) + newDigit;
-    }
 }

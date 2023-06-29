@@ -19,6 +19,7 @@ public class DeliveryPerson {
     private UsersWriters writer;
 
     public DeliveryPerson(String name, int age, String id, String vehicle, String gender, String codeDelivery, String user, String password) {
+        // Constructor para la clase DeliveryPerson que inicializa las variables miembro
         this.name = name;
         this.age = age;
         this.id = id;
@@ -32,13 +33,13 @@ public class DeliveryPerson {
     }
 
     public DeliveryPerson(Map<String, Object> map) {
+        // Constructor que recibe un mapa y inicializa el objeto DeliveryPerson basándose en los valores del mapa
         this.name = (String) map.get("name");
         if (map.get("age") instanceof Long) {
             this.age = ((Long) map.get("age")).intValue();
         } else if (map.get("age") instanceof String) {
             this.age = Integer.parseInt((String) map.get("age"));
         } else {
-            // Manejar otro tipo de valor o valor nulo si es necesario
             this.age = 0; // Valor predeterminado en caso de error
         }
 
@@ -53,6 +54,7 @@ public class DeliveryPerson {
     }
 
     public void setCodeDelivery(String codeDelivery) {
+        // Método setter para la variable codeDelivery
         this.codeDelivery = codeDelivery;
     }
 
@@ -93,10 +95,12 @@ public class DeliveryPerson {
     }
 
     public void setVerificate(String status) {
+        // Método setter para la variable verificate
         this.verificate = status;
     }
 
     public void choiceDelivery(String code) {
+        // Establece el codeDelivery y actualiza la información en los datos
         codeDelivery = code;
 
         addInfoToData();
@@ -112,6 +116,7 @@ public class DeliveryPerson {
     }
 
     public void deliverToUser() {
+        // Actualiza el estado de entrega a "Recibido" y limpia el codeDelivery
         DeliverysWriters delivery = new DeliverysWriters();
         Map<String, Object> map = new HashMap<>();
         map = delivery.getByKey(codeDelivery);
@@ -122,6 +127,7 @@ public class DeliveryPerson {
     }
 
     public void addInfoToData() {
+        // Agrega la información del repartidor a los datos utilizando un objeto UsersWriters
         Map<String, Object> stringMap = new HashMap<>();
         stringMap.put("name", name);
         stringMap.put("age", age);

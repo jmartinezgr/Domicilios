@@ -128,8 +128,6 @@
                 int cantidad = Integer.parseInt(cantidadF.getText());
 
                 if(product.stockToSell(cantidad)){
-                    product.setQuantity(product.getQuantity()-cantidad);
-                    product.addInfoToData();
                     usuario.addToShoppingCart(product,cantidad);
                     JOptionPane.showMessageDialog(null, "Se han agreado "+cantidad+" unidades de "+seleccionado, "Agreado!!", JOptionPane.INFORMATION_MESSAGE);
 
@@ -153,6 +151,17 @@
                     DeliverysWriters deliverysWriters = new DeliverysWriters();
                     int numero = deliverysWriters.getLastDeliveryNumber()+1;
                     JOptionPane.showMessageDialog(null, "Domicilio con codigo D-"+numero+" \n Valor Total: "+usuario.carritoValue() , "Pedido Realizado", JOptionPane.INFORMATION_MESSAGE);
+
+                    int currentIndex = 0;
+
+                    while(currentIndex < usuario.shoppingCart.size()){
+                        String nombre = usuario.shoppingCart.getNodeAtIndex(currentIndex).getValue().getName();
+                        ProductsWriters productsWriters = new ProductsWriters();
+                        Product productoAuxiliar = new Product(productsWriters.getByKey(nombre));
+                        productoAuxiliar.setQuantity(productoAuxiliar.getQuantity() - usuario.quantities.getNodeAtIndex(currentIndex).getValue());
+                        productoAuxiliar.addInfoToData();
+                        currentIndex++;
+                    }
                     usuario.doDelivery(numero);
                     usuario.shoppingCart.clear();}
                 else{
