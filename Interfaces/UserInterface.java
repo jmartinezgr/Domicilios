@@ -150,13 +150,18 @@
                 }
 
             } else if (e.getSource() == pedido) {
-                DeliverysWriters deliverysWriters = new DeliverysWriters();
-                int numero = deliverysWriters.getLastDeliveryNumber()+1;
-                JOptionPane.showMessageDialog(null, "Domicilio con codigo D-"+numero+" \n Valor Total: "+usuario.carritoValue() , "Pedido Realizado", JOptionPane.INFORMATION_MESSAGE);
-                usuario.doDelivery(numero);
-                usuario.shoppingCart.clear();
+                if(!usuario.shoppingCart.isEmpty()){
+                    DeliverysWriters deliverysWriters = new DeliverysWriters();
+                    int numero = deliverysWriters.getLastDeliveryNumber()+1;
+                    JOptionPane.showMessageDialog(null, "Domicilio con codigo D-"+numero+" \n Valor Total: "+usuario.carritoValue() , "Pedido Realizado", JOptionPane.INFORMATION_MESSAGE);
+                    usuario.doDelivery(numero);
+                    usuario.shoppingCart.clear();}
+                else{
+                    JOptionPane.showMessageDialog(null, "El carrito esta vacio, agrega algun producto" , "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else if (e.getSource() == vaciar) {
                 usuario.shoppingCart.clear();
+                JOptionPane.showMessageDialog(null, "Se ha vaciado el carrito" , "Carrito vacio", JOptionPane.INFORMATION_MESSAGE);
             }
         }
         public void setMainApp(MainApp mainApp) {
