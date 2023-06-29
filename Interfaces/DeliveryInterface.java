@@ -50,11 +50,11 @@ public class DeliveryInterface extends JFrame implements ActionListener {
         contenedor.add(scrollPane);
 
         codigo = new JLabel("Codigo: ");
-        codigo.setBounds(220,10,200,23);
+        codigo.setBounds(220,10,50,23);
         contenedor.add(codigo);
 
         usuario = new JLabel("Usuario: ");
-        usuario.setBounds(220,40,100,23);
+        usuario.setBounds(220,40,200,23);
         contenedor.add(usuario);
 
         lista = new JTextArea();
@@ -88,7 +88,7 @@ public class DeliveryInterface extends JFrame implements ActionListener {
         contenedor.add(entregarDomicilio);
 
         logout = new JButton("Cerrar Sesion");
-        logout.setBounds(320,40,130,23);
+        logout.setBounds(280,10,150,23);
         logout.addActionListener(this);
         contenedor.add(logout);
 
@@ -153,7 +153,7 @@ public class DeliveryInterface extends JFrame implements ActionListener {
 
     private void cargarInfo(){
         colaDomicilios = writer.deliverysWaitingToDelivery();
-
+        listModel.clear();
         if(!colaDomicilios.isEmpty()){
 
             while (!colaDomicilios.isEmpty()){

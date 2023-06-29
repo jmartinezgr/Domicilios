@@ -53,6 +53,13 @@ public class DeliverysWriters {
 
 
     public Queue<Map<String, Object>> deliverysWaitingToDelivery() {
+        try {
+            Object obj = parser.parse(new FileReader(this.filePath));
+            data = (JSONObject) obj;
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
         Queue<Map<String, Object>> queue = new Queue<>();
 
         // Crear una lista de claves para ordenarlas
