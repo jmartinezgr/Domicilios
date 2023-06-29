@@ -16,7 +16,7 @@
     "key": "D-1"
   },
   "D-4": {
-    "ProductList": "Papas(2) -> Pizza(5)",
+    "ProductList": "Papas(2) -> Pizza(5) -> Jabon(5)",
     "Status": "Esperando repartidor",
     "User": "Manuela",
     "Value": 260000.0,

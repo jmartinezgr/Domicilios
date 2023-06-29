@@ -86,7 +86,6 @@
             agregarCarrito.addActionListener(this);
             agregarCarrito.setVisible(false);
             contenedor.add(agregarCarrito);
-
         }
 
         @Override

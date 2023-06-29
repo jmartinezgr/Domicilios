@@ -11,6 +11,8 @@ public class MainApp {
 
     private UserInterface UserInterface;
 
+    private DeliveryInterface deliveryInterface;
+
     public MainApp() {
         loginInterface = new LoginInterface();
         loginInterface.setMainApp(this);
@@ -30,6 +32,9 @@ public class MainApp {
         } else if (UserInterface != null) {
             UserInterface.setVisible(false);
             UserInterface = null;
+        } else if (deliveryInterface != null) {
+            deliveryInterface.setVisible(false);
+            deliveryInterface = null;
         }
         loginInterface.setVisible(true);
     }
@@ -39,6 +44,13 @@ public class MainApp {
         UserInterface = new UserInterface(usuario);
         UserInterface.setMainApp(this);
         UserInterface.setVisible(true);
+    }
+
+    public void showDeliveryInterface(Map<String,Object> domiciliario){
+        loginInterface.setVisible(false);
+        deliveryInterface = new DeliveryInterface(domiciliario);
+        deliveryInterface.setMainApp(this);
+        deliveryInterface.setVisible(true);
     }
 
     public static void main(String[] args) {

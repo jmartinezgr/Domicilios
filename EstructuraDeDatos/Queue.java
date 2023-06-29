@@ -1,7 +1,7 @@
 package Domicilios.EstructuraDeDatos;
 
 public class Queue<T> {
-    private LinkedList<T> linkedList;
+    public LinkedList<T> linkedList;
 
     public Queue() {
         linkedList = new LinkedList<>();
@@ -26,31 +26,10 @@ public class Queue<T> {
         return firstNode.getValue();
     }
 
+    public int size(){
+        return linkedList.size();
+    }
 
-
-
-    /*
-    public T dequeue() {
-        if (isEmpty()) {
-            throw new IllegalStateException("The queue is empty.");
-        }
-
-        Node<T> current = linkedList.getInitialSelection();
-        Node<T> previous = null;
-
-        while (current.getNext() != null) {
-            previous = current;
-            current = current.getNext();
-        }
-
-        if (previous != null) {
-            previous.setNext(null);
-        } else {
-            linkedList.getInitialSelection().setNext(null);
-        }
-
-        return current.getValue();
-    }*/
 
     public Node<T> getHead() {
         return linkedList.getInitialSelection();

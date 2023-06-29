@@ -186,6 +186,8 @@ public class LoginInterface extends JFrame implements ActionListener {
                     if(info.get("password").equals(password)){
                         if(info.get("verificate").equals("Verificado")){
                             JOptionPane.showMessageDialog(null, "Bienvenido "+nuevousuario.getName(), "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                            this.mainApp.showDeliveryInterface(info);
+                            dispose();
                         } else if (info.get("verificate").equals("Por verificar")) {
                             JOptionPane.showMessageDialog(null, "El usuario no ha sido verificado aun", "Error", JOptionPane.ERROR_MESSAGE);
                         }else{
